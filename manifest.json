@@ -1,0 +1,23 @@
+{
+  "name": "Заметочная",
+  "short_name": "Заметочная",
+  "lang": "ru-ru",
+  "dir": "auto",
+  "display": "standalone",
+  "background_color": "#242423",
+  "description": "Простое приложение для заметок",
+  "categories": ["productivity", "utilities"],
+  "icons": [
+    {
+      "src": "/public/img/icons/android-chrome-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/public/img/icons/android-chrome-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ],
+  "theme_color": "#242423"
+}
