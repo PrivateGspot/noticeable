@@ -5,7 +5,7 @@ import {
   SET_UID,
   SET_TODO,
   REMOVE_TODO,
-  UPDATE_IS_DONE,
+  UPDATE_DONE_VALUE,
 } from './mutations';
 import { ADD_TODO, DELETE_TODO, UPDATE_TODO } from './actions';
 
@@ -32,7 +32,7 @@ export default new Vuex.Store({
       const { todos } = state;
       todos.splice(deleteIndex, 1);
     },
-    [UPDATE_IS_DONE](state, payload) {
+    [UPDATE_DONE_VALUE](state, payload) {
       const { todo, isDone } = payload;
       todo.isDone = isDone;
     },
@@ -67,7 +67,7 @@ export default new Vuex.Store({
           todo,
           isDone: payload.isDone,
         };
-        context.commit(UPDATE_IS_DONE, commitPayload);
+        context.commit(UPDATE_DONE_VALUE, commitPayload);
       }
     },
   },
