@@ -11,7 +11,7 @@
     </p>
     <base-button
       class="todo__delete-button button"
-      @click="REMOVE_TODO(todo)"
+      @click="DELETE_TODO(todo)"
     >
       &#10006;
     </base-button>
@@ -19,8 +19,8 @@
 </template>
 
 <script>
-import { mapMutations } from 'vuex';
-import { REMOVE_TODO, UPDATE_TODO } from '../store/mutations';
+import { mapActions } from 'vuex';
+import { DELETE_TODO, UPDATE_TODO } from '../store/actions';
 
 import BaseInputCheckbox from './BaseInputCheckbox.vue';
 import BaseButton from './BaseButton.vue';
@@ -30,7 +30,7 @@ export default {
     todo: Object,
   },
   methods: {
-    ...mapMutations([REMOVE_TODO]),
+    ...mapActions([DELETE_TODO, UPDATE_TODO]),
   },
   computed: {
     isDone: {
@@ -38,7 +38,7 @@ export default {
         return this.todo.isDone;
       },
       set(value) {
-        this.$store.commit(UPDATE_TODO, {
+        this.UPDATE_TODO({
           id: this.todo.id,
           isDone: value,
         });

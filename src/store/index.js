@@ -1,7 +1,13 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 import VuexPersist from 'vuex-persist';
-import { ADD_TODO, REMOVE_TODO, UPDATE_TODO } from './mutations';
+import {
+  SET_UID,
+  SET_TODO,
+  REMOVE_TODO,
+  UPDATE_IS_DONE,
+} from './mutations';
+import { ADD_TODO, DELETE_TODO, UPDATE_TODO } from './actions';
 
 const vuexPersist = new VuexPersist({
   key: 'noticable-state',
@@ -15,28 +21,53 @@ export default new Vuex.Store({
   strict: process.env.NODE_ENV !== 'production',
   state: {
     todos: [],
+    uid: 0,
   },
   mutations: {
-    [ADD_TODO](state, value) {
+    [SET_TODO](state, todo) {
       const { todos } = state;
-      todos.push({
-        id: todos.length,
+      todos.push(todo);
+    },
+    [REMOVE_TODO](state, deleteIndex) {
+      const { todos } = state;
+      todos.splice(deleteIndex, 1);
+    },
+    [UPDATE_IS_DONE](state, payload) {
+      const { todo, isDone } = payload;
+      todo.isDone = isDone;
+    },
+    [SET_UID](state) {
+      const newUid = state.uid;
+      state.uid = newUid + 1;
+    },
+  },
+  actions: {
+    [ADD_TODO](context, value) {
+      const { uid } = context.state;
+      const todo = {
+        id: uid,
         isDone: false,
         value,
-      });
+      };
+      context.commit(SET_TODO, todo);
+      context.commit(SET_UID);
     },
-    [REMOVE_TODO](state, payload) {
-      const { todos } = state;
-      todos.splice(payload.id, 1);
+    [DELETE_TODO](context, id) {
+      const { todos } = context.state;
+      const deleteIndex = todos.findIndex((todo) => todo.id === id);
+      context.commit(REMOVE_TODO, deleteIndex);
     },
-    [UPDATE_TODO](state, payload) {
-      const { todos } = state;
-      const todo = todos[payload.id];
-      if ('value' in payload) {
-        todo.value = payload.value;
-      }
+    [UPDATE_TODO](context, payload) {
+      const { todos } = context.state;
+      let commitPayload;
+      const todoIndex = todos.findIndex((todo) => todo.id === payload.id);
+      const todo = todos[todoIndex];
       if ('isDone' in payload) {
-        todo.isDone = payload.isDone;
+        commitPayload = {
+          todo,
+          isDone: payload.isDone,
+        };
+        context.commit(UPDATE_IS_DONE, commitPayload);
       }
     },
   },

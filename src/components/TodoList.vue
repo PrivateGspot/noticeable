@@ -23,8 +23,8 @@
 </template>
 
 <script>
-import { mapState, mapMutations } from 'vuex';
-import { ADD_TODO } from '../store/mutations';
+import { mapState, mapActions } from 'vuex';
+import { ADD_TODO } from '../store/actions';
 
 import BaseInputText from './BaseInputText.vue';
 import TodoListItem from './TodoListItem.vue';
@@ -46,7 +46,7 @@ export default {
     TodoListItem,
   },
   methods: {
-    ...mapMutations([ADD_TODO]),
+    ...mapActions([ADD_TODO]),
     pushTodo(event) {
       if (event.target.value.length === 0) return;
       this.ADD_TODO(this.newTodoValue);
