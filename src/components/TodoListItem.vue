@@ -11,7 +11,7 @@
     </p>
     <base-button
       class="todo__delete-button button"
-      @click="DELETE_TODO(todo)"
+      @click="DELETE_TODO(todo.id)"
     >
       &#10006;
     </base-button>
