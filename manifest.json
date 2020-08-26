@@ -5,7 +5,7 @@
   "dir": "auto",
   "display": "standalone",
   "background_color": "#242423",
-  "description": "Простое приложение для заметок",
+  "description": "Приложение для заметок",
   "categories": ["productivity", "utilities"],
   "icons": [
     {
