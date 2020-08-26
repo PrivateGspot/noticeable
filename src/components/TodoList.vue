@@ -4,7 +4,7 @@
       <base-input-text
         autofocus
         class="todo-list__input"
-        placeholder='Введите задачу, например "сходить за покупками"'
+        placeholder='Что нужно сделать?'
         v-model.trim="newTodoValue"
         @keyup.enter.native="pushTodo"
       />
