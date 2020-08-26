@@ -1,6 +1,6 @@
 <template>
   <article class="todo-list">
-    <header class="todo-list__header">
+    <header>
       <base-input-text
         autofocus
         class="todo-list__input"
@@ -8,10 +8,11 @@
         v-model.trim="newTodoValue"
         @keyup.enter.native="pushTodo"
       />
+      <base-alert-box>Добавь сообщение, сука!</base-alert-box>
     </header>
-    <div class="todo-list__todos todos">
+    <div class="todos">
       <ul class="todos__list">
-        <li class="todos__todo" v-for="todo in todos" :key="todo.id">
+        <li v-for="todo in todos" :key="todo.id">
           <todo-list-item :todo="todo" />
         </li>
       </ul>
@@ -28,6 +29,7 @@ import { ADD_TODO } from '../store/actions';
 
 import BaseInputText from './BaseInputText.vue';
 import TodoListItem from './TodoListItem.vue';
+import BaseAlertBox from './BaseAlertBox.vue';
 
 export default {
   data() {
@@ -44,6 +46,7 @@ export default {
   components: {
     BaseInputText,
     TodoListItem,
+    BaseAlertBox,
   },
   methods: {
     ...mapActions([ADD_TODO]),
