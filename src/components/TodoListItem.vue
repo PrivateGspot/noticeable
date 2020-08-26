@@ -11,7 +11,7 @@
     </p>
     <base-button
       class="todo__delete-button button"
-      @click="DELETE_TODO(todo.id)"
+      @click="deleteTodo(todo.id)"
     >
       &#10006;
     </base-button>
@@ -31,6 +31,10 @@ export default {
   },
   methods: {
     ...mapActions([DELETE_TODO, UPDATE_TODO]),
+    deleteTodo(id) {
+      this.DELETE_TODO(id);
+      this.$emit('todo-delete');
+    },
   },
   computed: {
     isDone: {

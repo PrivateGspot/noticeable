@@ -1,6 +1,6 @@
 <template>
   <article class="todo-list">
-    <header>
+    <header class="todo-list__header">
       <base-input-text
         autofocus
         class="todo-list__input"
@@ -8,12 +8,12 @@
         v-model.trim="newTodoValue"
         @keyup.enter.native="pushTodo"
       />
-      <base-alert-box>Добавь сообщение, сука!</base-alert-box>
+      <base-alert-box :warning="isWarning" :success="isSuccess">{{ message }}</base-alert-box>
     </header>
     <div class="todos">
       <ul class="todos__list">
         <li v-for="todo in todos" :key="todo.id">
-          <todo-list-item :todo="todo" />
+          <todo-list-item @todo-delete="onTodoDelete" :todo="todo" />
         </li>
       </ul>
     </div>
@@ -35,6 +35,9 @@ export default {
   data() {
     return {
       newTodoValue: '',
+      message: 'Доброго времени суток!',
+      isWarning: false,
+      isSuccess: false,
     };
   },
   computed: {
@@ -50,10 +53,30 @@ export default {
   },
   methods: {
     ...mapActions([ADD_TODO]),
+    toggleBoxTo(state) {
+      if (state === 'warning') {
+        this.isWarning = true;
+        this.isSuccess = false;
+      } else if (state === 'success') {
+        this.isSuccess = true;
+        this.isWarning = false;
+      }
+    },
     pushTodo(event) {
-      if (event.target.value.length === 0) return;
+      if (event.target.value.length === 0) {
+        this.toggleBoxTo('warning');
+        this.message = 'Текст задачи не может содержать менее одного символа';
+
+        return;
+      }
+      this.toggleBoxTo('success');
+      this.message = 'Заметка успешно добавлена';
       this.ADD_TODO(this.newTodoValue);
       this.newTodoValue = '';
+    },
+    onTodoDelete() {
+      this.toggleBoxTo('success');
+      this.message = 'Заметка успешно удалена';
     },
   },
 };
@@ -71,6 +94,8 @@ export default {
 
 .todo-list__input {
   width: 100%;
+
+  margin-bottom: 16px
 }
 
 .todos {
