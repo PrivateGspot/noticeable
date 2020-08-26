@@ -11,6 +11,7 @@
       <base-alert-box :warning="isWarning" :success="isSuccess">{{ message }}</base-alert-box>
     </header>
     <div class="todos">
+      <h2 class="todos__title">{{ todoListTitle }}</h2>
       <ul class="todos__list">
         <li v-for="todo in todos" :key="todo.id">
           <todo-list-item @todo-delete="onTodoDelete" :todo="todo" />
@@ -18,7 +19,12 @@
       </ul>
     </div>
     <footer class="todo-list__footer">
-      Количество заметок: {{todosCount}}
+      <template v-if="todosCount === 0">
+        Список задач пуст
+      </template>
+      <template v-else>
+        Количество задач: {{todosCount}}
+      </template>
     </footer>
   </article>
 </template>
@@ -35,6 +41,7 @@ export default {
   data() {
     return {
       newTodoValue: '',
+      todoListTitle: 'Список задач',
       message: 'Доброго времени суток!',
       isWarning: false,
       isSuccess: false,
@@ -98,15 +105,11 @@ export default {
   margin-bottom: 16px
 }
 
-.todos {
-  background-color: var(--bg-add-color);
-
-  border-radius: 4px;
-}
-
 .todos__list {
   padding: 0;
 
+  border-radius: 4px;
+  background-color: var(--bg-add-color);
   list-style: none;
 }
 </style>
