@@ -39,6 +39,8 @@ export default {
   --bg-main-color: #242423;
   --bg-add-color: #333533;
   --cta-color: #f5cb5c;
+  --warning-color: #a81b1b;
+  --success-color: #1da019;
   --bg-contrast-color: #e8eddf;
   --bg-contrast-add-color: #cfdbd5;
 }
