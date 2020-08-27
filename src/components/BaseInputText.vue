@@ -43,6 +43,12 @@ export default {
 
     background-color: var(--bg-add-color);
 
+    box-shadow: inset 1px 1px 1px rgba(0, 0, 0, 0.7);
+
     cursor: text;
+  }
+
+  .text-input:focus {
+    box-shadow: inset 2px 2px 1px rgba(0, 0, 0, 0.7), 0 0 0 3px var(--bg-contrast-add-color);
   }
 </style>
