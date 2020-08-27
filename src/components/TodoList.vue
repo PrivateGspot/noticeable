@@ -1,6 +1,13 @@
 <template>
   <article class="todo-list">
     <header class="todo-list__header">
+      <base-alert-box
+        :warning="isWarning"
+        :success="isSuccess"
+        class="todo-list__alert-box"
+      >
+        {{ message }}
+      </base-alert-box>
       <base-input-text
         autofocus
         class="todo-list__input"
@@ -8,7 +15,6 @@
         v-model.trim="newTodoValue"
         @keyup.enter.native="pushTodo"
       />
-      <base-alert-box :warning="isWarning" :success="isSuccess">{{ message }}</base-alert-box>
     </header>
     <div class="todos">
       <h2 class="todos__title">{{ todoListTitle }}</h2>
@@ -99,10 +105,12 @@ export default {
   max-width: 600px;
 }
 
+.todo-list__alert-box {
+  margin-bottom: 16px;
+}
+
 .todo-list__input {
   width: 100%;
-
-  margin-bottom: 16px
 }
 
 .todos__list {
