@@ -16,13 +16,12 @@ export default {
   computed: {
     listeners() {
       const vm = this;
-      // объединяем объекты вместе, чтобы получить новый объект
       return {
         // добавляем все слушатели из родителя
         ...this.$listeners,
         // Затем мы можем добавить собственные слушатели или
         // перезаписать поведение некоторых существующих.
-        // Это обеспечит, что будет работать v-model на компоненте
+        // Это обеспечит то, что будет работать v-model на компоненте
         input(event) {
           vm.$emit('input', event.target.value);
         },
@@ -43,7 +42,7 @@ export default {
 
     background-color: var(--bg-add-color);
 
-    box-shadow: inset 1px 1px 1px rgba(0, 0, 0, 0.7);
+    box-shadow: inset 2px 1px 1px rgba(0, 0, 0, 0.7);
 
     cursor: text;
   }
