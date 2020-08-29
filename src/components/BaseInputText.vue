@@ -45,6 +45,8 @@ export default {
     box-shadow: inset 2px 1px 1px rgba(0, 0, 0, 0.7);
 
     cursor: text;
+
+    transition: all 0.2s;
   }
 
   .text-input:focus {

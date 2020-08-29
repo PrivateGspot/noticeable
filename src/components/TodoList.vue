@@ -1,26 +1,13 @@
 <template>
-  <article class="todo-list">
+  <section class="todo-list">
     <header class="todo-list__header">
-      <base-alert-box
-        :warning="isWarning"
-        :success="isSuccess"
-        class="todo-list__alert-box"
-      >
-        {{ message }}
-      </base-alert-box>
-      <base-input-text
-        autofocus
-        class="todo-list__input"
-        placeholder='Что нужно сделать?'
-        v-model.trim="newTodoValue"
-        @keyup.enter.native="pushTodo"
-      />
+      <todo-list-input-form />
     </header>
     <div class="todos">
-      <h2 class="todos__title">{{ todoListTitle }}</h2>
+      <h2 class="todos__title">{{ title }}</h2>
       <ul class="todos__list">
         <li v-for="todo in todos" :key="todo.id">
-          <todo-list-item @todo-delete="onTodoDelete" :todo="todo" />
+          <todo-list-item :todo="todo" />
         </li>
       </ul>
     </div>
@@ -32,26 +19,18 @@
         Количество задач: {{todosCount}}
       </template>
     </footer>
-  </article>
+  </section>
 </template>
 
 <script>
-import { mapState, mapActions } from 'vuex';
-import { ADD_TODO } from '../store/actions';
+import { mapState } from 'vuex';
 
-import BaseInputText from './BaseInputText.vue';
 import TodoListItem from './TodoListItem.vue';
-import BaseAlertBox from './BaseAlertBox.vue';
+import TodoListInputForm from './TodoListInputForm.vue';
 
 export default {
-  data() {
-    return {
-      newTodoValue: '',
-      todoListTitle: 'Список задач',
-      message: 'Доброго времени суток!',
-      isWarning: false,
-      isSuccess: false,
-    };
+  props: {
+    title: String,
   },
   computed: {
     todosCount() {
@@ -60,37 +39,8 @@ export default {
     ...mapState(['todos']),
   },
   components: {
-    BaseInputText,
     TodoListItem,
-    BaseAlertBox,
-  },
-  methods: {
-    ...mapActions([ADD_TODO]),
-    toggleBoxTo(state) {
-      if (state === 'warning') {
-        this.isWarning = true;
-        this.isSuccess = false;
-      } else if (state === 'success') {
-        this.isSuccess = true;
-        this.isWarning = false;
-      }
-    },
-    pushTodo(event) {
-      if (event.target.value.length === 0) {
-        this.toggleBoxTo('warning');
-        this.message = 'Текст задачи не может содержать менее одного символа';
-
-        return;
-      }
-      this.toggleBoxTo('success');
-      this.message = 'Заметка успешно добавлена';
-      this.ADD_TODO(this.newTodoValue);
-      this.newTodoValue = '';
-    },
-    onTodoDelete() {
-      this.toggleBoxTo('success');
-      this.message = 'Заметка успешно удалена';
-    },
+    TodoListInputForm,
   },
 };
 </script>

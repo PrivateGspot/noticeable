@@ -4,12 +4,16 @@
       <base-input-checkbox
         class="todo__checkbox"
         v-model="isDone"
-      />
-      <span :class="{ 'todo--completed': todo.isDone }">
-        {{todo.value}}
-      </span>
+      >
+        <span
+          :class="{ 'todo--completed': todo.isDone }"
+        >
+          {{todo.value}}
+        </span>
+      </base-input-checkbox>
     </p>
     <base-button
+      aria-label="Удалить задачу"
       class="todo__delete-button button"
       @click="deleteTodo(todo.id)"
     >
@@ -33,7 +37,7 @@ export default {
     ...mapActions([DELETE_TODO, UPDATE_TODO]),
     deleteTodo(id) {
       this.DELETE_TODO(id);
-      this.$emit('todo-delete');
+      this.$emit('todo-deleted');
     },
   },
   computed: {
@@ -83,10 +87,6 @@ export default {
   line-height: 1.4;
 
   margin: 0;
-}
-
-.todo__checkbox {
-  margin-right: 0.8em;
 }
 
 .todo:hover > .todo__controls {

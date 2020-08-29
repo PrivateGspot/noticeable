@@ -6,7 +6,7 @@
         <the-page-header />
       </template>
       <template v-slot:default>
-        <todo-list />
+        <todo-list :title="'Список задач'"/>
       </template>
       <template v-slot:footer>
         <the-page-footer />
@@ -39,6 +39,8 @@ export default {
   --bg-main-color: #242423;
   --bg-add-color: #333533;
   --cta-color: #f5cb5c;
+  --cta-active-color: #e4b536;
+  --disabled-color: #999999;
   --warning-color: #a81b1b;
   --success-color: #1da019;
   --bg-contrast-color: #e8eddf;
