@@ -77,6 +77,8 @@ export default {
   .input-form__button {
     margin-left: 0;
     margin-top: 0.8em;
+
+    padding: 0.8em;
   }
 }
 </style>
